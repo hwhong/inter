@@ -1,11 +1,21 @@
-import Head from 'next/head'
-import Image from 'next/image'
+import Head from "next/head";
+import Image from "next/image";
 
-import styles from '@/pages/index.module.css'
+import styles from "@/pages/index.module.css";
+import { useEffect } from "react";
+import { Scanner } from "interpreter/scanner";
 
 export default function Home() {
+  const onClick = () => {
+    const str = `
+    var test = "interpreter"
+    `;
+    const scanner = new Scanner(str);
+    console.log(scanner.scan());
+  };
+
   return (
-    <div className={styles.container}>
+    <div className={styles.container} onClick={onClick}>
       <Head>
         <title>Create Next App</title>
         <link rel="icon" href="/favicon.ico" />
@@ -54,12 +64,12 @@ export default function Home() {
           target="_blank"
           rel="noopener noreferrer"
         >
-          Powered by{' '}
+          Powered by{" "}
           <span className={styles.logo}>
             <Image src="/vercel.svg" alt="Vercel Logo" width={72} height={16} />
           </span>
         </a>
       </footer>
     </div>
-  )
+  );
 }

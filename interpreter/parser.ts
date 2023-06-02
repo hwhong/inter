@@ -1,4 +1,13 @@
-import { Expression, NodeType, TokenType, Token, Atom } from "./py-type";
+import {
+  Expression,
+  NodeType,
+  TokenType,
+  Token,
+  Atom,
+  NumberNode,
+  StringNode,
+  IdentifierNode,
+} from "./py-type";
 
 export class Parser {
   public tokens: Token[];
@@ -22,6 +31,10 @@ export class Parser {
     return this.tokens[this.current - 1];
   }
 
+  back() {
+    this.current = this.current - 1;
+  }
+
   advance() {
     if (!this.isEnd()) {
       this.current++;
@@ -32,7 +45,7 @@ export class Parser {
   /** parsing */
   parse() {
     const nodes: Expression[] = [];
-    while (this.isEnd()) {
+    while (!this.isEnd()) {
       nodes.push(this.expression());
     }
 
@@ -43,13 +56,16 @@ export class Parser {
     const token = this.advance();
 
     if (token.type === TokenType.PRINT) {
-      const valueToPrint = this.expression();
+      const value = this.expression();
+
       return {
         node: NodeType.PRINT,
-        value: valueToPrint,
+        value,
       };
     }
 
+    this.back();
+    const atom = this.atom();
     if (
       [
         TokenType.AND,
@@ -62,13 +78,13 @@ export class Parser {
         TokenType.BANG_EQUAL,
       ].includes(this.peek().type)
     ) {
-      const token = this.advance();
-      const left = this.expression();
+      const left = atom;
+      const opToken = this.advance();
       const right = this.expression();
 
       return {
         node: NodeType.BINARY_OP,
-        op: token.lexeme as string,
+        op: opToken.lexeme as string,
         left,
         right,
       };
@@ -78,6 +94,33 @@ export class Parser {
   }
 
   atom(): Atom {
+    const token = this.advance();
+
+    if (token.type === TokenType.NUMBER) {
+      return {
+        node: NodeType.NUMBER,
+        value: token.lexeme,
+      } as NumberNode;
+    } else if (
+      token.type === TokenType.TRUE ||
+      token.type === TokenType.FALSE
+    ) {
+      return {
+        node: NodeType.BOOLEAN,
+        value: token.lexeme === "TRUE" ? true : false,
+      };
+    } else if (token.type === TokenType.STRING) {
+      return {
+        node: NodeType.STRING,
+        value: token.lexeme,
+      } as StringNode;
+    } else if (token.type === TokenType.IDENTIFIER) {
+      return {
+        node: NodeType.IDENTIFIER,
+        value: token.lexeme,
+      } as IdentifierNode;
+    }
+
     return {
       node: NodeType.STRING,
       value: "",

@@ -47,12 +47,12 @@ export class Scanner {
     const char = this.advance();
 
     switch (char) {
-      case "(":
-        this.addToken(TokenType.LEFT_PAREN);
-        break;
-      case ")":
-        this.addToken(TokenType.RIGHT_PAREN);
-        break;
+      // case "(":
+      //   this.addToken(TokenType.LEFT_PAREN);
+      //   break;
+      // case ")":
+      //   this.addToken(TokenType.RIGHT_PAREN);
+      //   break;
       case ",":
         this.addToken(TokenType.COMMA);
         break;

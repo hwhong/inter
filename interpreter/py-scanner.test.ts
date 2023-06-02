@@ -57,9 +57,9 @@ describe("main", () => {
     const tokens = new Scanner(str).scan();
     expect(tokens).toStrictEqual([
       { type: TokenType.PRINT, lineNumber: 1, lexeme: "print" },
-      { type: TokenType.LEFT_PAREN, lexeme: "(", lineNumber: 1 },
+      // { type: TokenType.LEFT_PAREN, lexeme: "(", lineNumber: 1 },
       { type: TokenType.STRING, lexeme: "hello", lineNumber: 1 },
-      { type: TokenType.RIGHT_PAREN, lexeme: ")", lineNumber: 1 },
+      // { type: TokenType.RIGHT_PAREN, lexeme: ")", lineNumber: 1 },
       { type: TokenType.EOF, lexeme: ``, lineNumber: 1 },
     ]);
   });
@@ -74,18 +74,18 @@ describe("main", () => {
     expect(tokens).toStrictEqual([
       { type: TokenType.DEF, lineNumber: 1, lexeme: "def" },
       { type: TokenType.IDENTIFIER, lexeme: "my_function", lineNumber: 1 },
-      { type: TokenType.LEFT_PAREN, lexeme: "(", lineNumber: 1 },
+      // { type: TokenType.LEFT_PAREN, lexeme: "(", lineNumber: 1 },
       { type: TokenType.IDENTIFIER, lexeme: "arg", lineNumber: 1 },
       { type: TokenType.COMMA, lexeme: ",", lineNumber: 1 },
       { type: TokenType.IDENTIFIER, lexeme: "arg1", lineNumber: 1 },
-      { type: TokenType.RIGHT_PAREN, lexeme: ")", lineNumber: 1 },
+      // { type: TokenType.RIGHT_PAREN, lexeme: ")", lineNumber: 1 },
       { type: TokenType.COLON, lexeme: ":", lineNumber: 1 },
 
       { type: TokenType.TAB, lineNumber: 2, lexeme: "\t" },
       { type: TokenType.PRINT, lineNumber: 2, lexeme: "print" },
-      { type: TokenType.LEFT_PAREN, lexeme: "(", lineNumber: 2 },
+      // { type: TokenType.LEFT_PAREN, lexeme: "(", lineNumber: 2 },
       { type: TokenType.STRING, lexeme: "hello", lineNumber: 2 },
-      { type: TokenType.RIGHT_PAREN, lexeme: ")", lineNumber: 2 },
+      // { type: TokenType.RIGHT_PAREN, lexeme: ")", lineNumber: 2 },
       { type: TokenType.EOF, lexeme: ``, lineNumber: 2 },
     ]);
   });

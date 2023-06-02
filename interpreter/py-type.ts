@@ -48,6 +48,7 @@ export enum NodeType {
   NUMBER,
   BOOLEAN,
   IDENTIFIER,
+
   FUNCTION_DEF,
   FUNCTION_USE,
   ASSIGN,
@@ -59,13 +60,18 @@ export enum NodeType {
 
 export type Expression = PrintNode | BinaryOpNode | Atom;
 
-export type Atom = StringNode | NumberNode | BooleanNode;
+export type Atom = StringNode | NumberNode | BooleanNode | IdentifierNode;
 
 export interface ConditionalNode {
   node: NodeType.CONDITIONAL;
   condition: Expression;
 
   body: Expression;
+}
+
+export interface IdentifierNode {
+  node: NodeType.IDENTIFIER;
+  value: string;
 }
 
 export interface StringNode {
